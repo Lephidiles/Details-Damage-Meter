@@ -452,7 +452,7 @@ local fill_compare_actors = function(self, player, other_players)
                 end
                 bar [2].lefttext:SetTextColor(1, 1, 1, 1)
                 bar [2].righttext:SetText(Details:ToK2Min (data [2])) -- .. " (" .. math.floor(data [2] / total * 100) .. "%)"
-                bar [2]:SetValue(data [2] / top * 100)
+                bar [2]:SetValue(data [2] / math.max(top, 0.01) * 100) --Divition by zero protection
                 --bar [2]:SetValue(100)
                 bar [3][1] = data [1].counter --tooltip hits
                 bar [3][2] = data [2] / math.max(data [1].counter, 0.0001) --tooltip average
@@ -884,7 +884,7 @@ local on_enter_target = function(self)
                         bar [2].righttext:SetText(Details:ToK2Min (this_spell [2]) .. " |c" .. minor .. up .. "%|r")
                     else
                         local diff = this_spell [2] - spell [2]
-                        local down = diff / spell [2] * 100
+                        local down = diff / math.max(spell [2], 0.01) * 100 --Divition by 0 protection
                         down = math.floor(down)
                         if (down > 999) then
                             down = "" .. 999
@@ -1085,7 +1085,7 @@ local on_enter = function(self)
         --average
         if (average > bar2[3][2]) then
             local diff = average - bar2[3][2]
-            local up = diff / bar2[3][2] * 100
+            local up = diff / math.max(bar2[3][2], 0.01) * 100 --Divition by 0 protection
             up = math.floor(up)
             if (up > 999) then
                 up = "" .. 999
@@ -1115,7 +1115,7 @@ local on_enter = function(self)
             frame2.tooltip.crit_label2:SetText(" |c" .. minor .. percent .. "%|r")
             --]]
             local diff = critical - bar2[3][3]
-            diff = diff / bar2[3][3] * 100
+            diff = diff / math.max(bar2[3][3], 0.01) * 100 --Divition by 0 protection
             diff = math.floor(diff)
             if (diff > 999) then
                 diff = "" .. 999
@@ -1198,7 +1198,7 @@ local on_enter = function(self)
                     frame2.tooltip.casts_label2:SetText("|c" .. minor .. up .. "%|r")
                 else
                     local diff = amt_casts - player1_casts
-                    local down = diff / player1_casts * 100
+                    local down = diff / math.max(player1_casts, 0.01) * 100 --Divition by 0 protection
                     down = math.floor(down)
                     if (down > 999) then
                         down = "" .. 999
@@ -1276,7 +1276,7 @@ local on_enter = function(self)
         --critical
         if (critical > bar3[3][3]) then
             local diff = critical - bar3[3][3]
-            diff = diff / bar3[3][3] * 100
+            diff = diff / math.max(bar3[3][3], 0.01) * 100 --Div by 0 protection
             diff = math.floor(diff)
             if (diff > 999) then
                 diff = "" .. 999
@@ -1353,7 +1353,7 @@ local on_enter = function(self)
                     frame3.tooltip.casts_label2:SetText(" |c" .. minor .. up .. "%|r")
                 else
                     local diff = amt_casts - player1_casts
-                    local down = diff / player1_casts * 100
+                    local down = diff / math.max(player1_casts, 0.01) * 100 --Divition by 0 protection
                     down = math.floor(down)
                     if (down > 999) then
                         down = "" .. 999
